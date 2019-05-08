@@ -22,7 +22,8 @@ events = events %>% slice(1:5e4) # Útil para testar código em dados pequenos. 
 
 events = events %>% 
     group_by(session_id) %>% 
-    arrange(timestamp) %>% 
+    arrange(timestamp) %>%
+    head(2000) %>%
     mutate(search_index = cumsum(action == "searchResultPage"), # contador de buscas na sessão.
            date = ymd_hms(timestamp))  %>% 
     ungroup()

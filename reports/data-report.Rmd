@@ -103,7 +103,7 @@ Analisando o gráfico acima, é fácil ver que o grupo _A_ possui uma __taxa de 
 
 # Quais resultados as pessoas tendem a tentar primeiro? Como isso muda no dia-a-dia?
 
-```{r}
+```{r  warning=FALSE}
 
 first_search <- data %>%
                     filter(num_clicks > 0) %>%
@@ -122,7 +122,51 @@ Podemos ver que o primeiro resultado é o mais clicado. No dia-a-dia, isso indic
 
 # Qual é a nossa taxa global zero de resultados? Como isso varia entre os grupos?
 
+```{r}
 
+empty_results_search <- data %>% 
+                            filter(results == 0) %>% 
+                            group_by(session_start_date) %>% 
+                            summarise(num_results_empty = n())
+
+global_results <- data %>%
+                    group_by(session_start_date) %>%
+                    summarise(total_results = n())
+
+zero_global_result_rate <- empty_results_search %>%
+                            inner_join(global_results, by=c("session_start_date")) %>%
+                            mutate(zero_results_rate = num_results_empty/total_results)
+
+
+ggplot(data=zero_global_result_rate, aes(x=session_start_date, y=zero_results_rate)) + 
+        geom_line() + 
+        labs(x="Data", y="Taxa de Resultado Vazio")
+                    
+
+```
+
+Vemos que a taxa dispara na proximidade do dia 8 de Março.
+
+```{r}
+
+
+group_results <- data %>%
+                    group_by(session_start_date, group) %>%
+                    summarise(total_results = n())
+
+zero_group_result_rate <- empty_results_search %>%
+                            inner_join(group_results, by=c("session_start_date", "group")) %>%
+                            mutate(zero_results_rate = num_results_empty/total_results)
+
+
+ggplot(data=zero_group_result_rate, aes(x=session_start_date, y=zero_results_rate, group=group, color=group)) + 
+        geom_line() + 
+        labs(x="Data", y="Taxa de Resultado Vazio")
+
+
+```
+
+Analisando o gráfico que discrimina grupo, vemos que o grupo B teve uma taxa de resultados vazios maior do que no grupo A no dia 6.
 
 ---
 

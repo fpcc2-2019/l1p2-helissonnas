@@ -1,0 +1,68 @@
+---
+title: "L2P2: Uma análise bem maior"
+author: "Helisson Nascimento"
+output: html_notebook
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+    options(scipen=999)
+    library(tidyverse)
+    library(here)
+    library(lubridate)
+    theme_set(theme_bw())
+
+    data <- read_csv(here::here("data/search_data.csv"))
+```
+
+# Considerações Iniciais
+
+A partir de dados da _Winkpedia_, dispostos em `/data/search_data.csv`, respoder as questões abaixo:
+
+* Qual é a nossa taxa de cliques geral diária? Como isso varia entre os grupos?
+* Quais resultados as pessoas tendem a tentar primeiro? Como isso muda no dia-a-dia?
+* Qual é a nossa taxa global zero de resultados? Como isso varia entre os grupos?
+* A duração da sessão é aproximadamente o tempo entre o primeiro e o último evento de uma sessão. Escolha uma variável do conjunto de dados e descreva sua relação com o tamanho da sessão. Visualize o relacionamento.
+
+## Mas, o que esse _dataset_ descreve?
+
+A _Winkpedia_ reuniu dados de buscas e a navegação depois das buscas e dispos nas seguintes variáveis:
+
+* session_id : Um id único identificando sessões individuais
+* search_index : Um contador de buscas em uma mesma sessão ordenado cronologicamente
+* session_start_timestamp: O timestamp que a sessão iniciou
+* session_start_date : A data e hora que a sessão iniciou
+* group : O grupo que pode ser "a" ou "b"
+* results : A quantidade de resultados que a busca retornou
+* num_clicks : O número de páginas que o usuário visitou a partir da busca
+* first_click : A posição do link da página visitada no mecanismo de busca de páginas
+* session_length : A duração em segundos da sessão
+
+---
+
+# Explorando o _dataset_
+
+Vamos visualizar a disposição dessas variáveis dentro do _dataset_
+
+```{r}
+
+head(data %>% arrange(session_id))
+
+```
+
+```{r} 
+
+data %>% ggplot(aes(x = num_clicks)) + geom_histogram(binwidth = 1) 
+
+```
+
+---
+
+# Qual é a nossa taxa de cliques geral diária? Como isso varia entre os grupos?
+
+
+
+# Quais resultados as pessoas tendem a tentar primeiro? Como isso muda no dia-a-dia?
+
+# Qual é a nossa taxa global zero de resultados? Como isso varia entre os grupos?
+
+# A duração da sessão é aproximadamente o tempo entre o primeiro e o último evento de uma sessão. Escolha uma variável do conjunto de dados e descreva sua relação com o tamanho da sessão. Visualize o relacionamento

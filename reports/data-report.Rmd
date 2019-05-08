@@ -99,10 +99,35 @@ ggplot(data = sessions_by_date, aes(x = session_start_date, y = clickthrough_rat
 
 Analisando o gráfico acima, é fácil ver que o grupo _A_ possui uma __taxa de cliques__ maior.
 
+---
+
 # Quais resultados as pessoas tendem a tentar primeiro? Como isso muda no dia-a-dia?
 
+```{r}
 
+first_search <- data %>%
+                    filter(num_clicks > 0) %>%
+                    group_by(session_id) %>% 
+                    summarise(first_search_index = min(search_index))
+
+ggplot(first_search , aes(x = first_search_index)) + 
+                            geom_histogram() + 
+                                labs(y="Frequência", x="Primeiro Clique para Buscar")
+
+```
+
+Podemos ver que o primeiro resultado é o mais clicado. No dia-a-dia, isso indica a eficiência do mecânismo de busca, afinal, na maioria das vezes os primeiros resultados correspondem ao que o usuário queria.
+
+---
 
 # Qual é a nossa taxa global zero de resultados? Como isso varia entre os grupos?
 
+
+
+---
+
 # A duração da sessão é aproximadamente o tempo entre o primeiro e o último evento de uma sessão. Escolha uma variável do conjunto de dados e descreva sua relação com o tamanho da sessão. Visualize o relacionamento
+
+
+
+---

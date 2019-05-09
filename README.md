@@ -1,3 +1,8 @@
+# Link para o resultado da análise publicado no RPubs:
+
+http://rpubs.com/helissonnas/fpcc1-lip2 
+
+
 # Sessões, buscas e navegação na wikimedia
 
 Este repo é a semente para uma análise de padrões de busca e navegação em páginas de projetos da wikimedia (provavelmente wikipedia).

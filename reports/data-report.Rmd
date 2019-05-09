@@ -1,7 +1,9 @@
 ---
-title: "L2P2: Uma análise bem maior"
+title: 'L2P2: Uma análise bem maior'
 author: "Helisson Nascimento"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
@@ -155,7 +157,7 @@ group_results <- data %>%
                     summarise(total_results = n())
 
 zero_group_result_rate <- empty_results_search %>%
-                            inner_join(group_results, by=c("session_start_date", "group")) %>%
+                            inner_join(group_results, by=c("session_start_date")) %>%
                             mutate(zero_results_rate = num_results_empty/total_results)
 
 
